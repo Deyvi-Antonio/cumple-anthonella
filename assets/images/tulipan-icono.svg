@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Tulipán decorativo">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#25283F"/>
+      <stop offset="100%" stop-color="#8975B5"/>
+    </linearGradient>
+    <linearGradient id="petalCenter" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F2D5E4"/>
+      <stop offset="100%" stop-color="#DCCCF5"/>
+    </linearGradient>
+    <linearGradient id="petalSide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DCCCF5"/>
+      <stop offset="100%" stop-color="#8975B5"/>
+    </linearGradient>
+  </defs>
+  <!-- Círculo de fondo estilo noche anime -->
+  <circle cx="60" cy="60" r="56" fill="url(#skyGrad)" stroke="#E4E7EF" stroke-width="2" stroke-opacity="0.5"/>
+  <!-- Destellos -->
+  <path d="M30 24 L32 30 L38 32 L32 34 L30 40 L28 34 L22 32 L28 30 Z" fill="#C9E4F5" opacity="0.9"/>
+  <path d="M92 28 L93.5 32.5 L98 34 L93.5 35.5 L92 40 L90.5 35.5 L86 34 L90.5 32.5 Z" fill="#F2D5E4" opacity="0.85"/>
+  <circle cx="24" cy="68" r="2" fill="#E4E7EF" opacity="0.7"/>
+  <circle cx="95" cy="72" r="2.5" fill="#C9E4F5" opacity="0.7"/>
+  <!-- Tallo y hojas -->
+  <path d="M60 66 L60 104" stroke="#C9E4F5" stroke-width="4" stroke-linecap="round"/>
+  <path d="M60 98 C42 94, 36 78, 44 68 C48 78, 52 88, 60 92 Z" fill="#C9E4F5" opacity="0.85"/>
+  <path d="M60 98 C78 94, 84 78, 76 68 C72 78, 68 88, 60 92 Z" fill="#C9E4F5" opacity="0.7"/>
+  <!-- Pétalos del tulipán -->
+  <path d="M60 22 C46 34, 46 58, 60 68 C74 58, 74 34, 60 22 Z" fill="url(#petalCenter)"/>
+  <path d="M60 68 C42 66, 36 46, 44 30 C48 42, 52 56, 60 68 Z" fill="url(#petalSide)"/>
+  <path d="M60 68 C78 66, 84 46, 76 30 C72 42, 68 56, 60 68 Z" fill="url(#petalSide)"/>
+</svg>

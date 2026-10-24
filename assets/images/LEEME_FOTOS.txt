@@ -1,0 +1,19 @@
+================================================================
+CARPETA DE IMÁGENES (assets/images/)
+================================================================
+
+Coloca en esta carpeta las fotografías que quieras mostrar en la
+página de cumpleaños de Anthonella.
+
+Formatos admitidos:
+- .jpg / .jpeg
+- .png
+- .webp
+
+Nombres recomendados para reemplazar fácilmente en index.html:
+- foto1.jpg
+- foto2.jpg
+- foto3.jpg
+
+Consulta el archivo README.md en la carpeta principal para ver el
+paso a paso detallado de cómo activar tus fotos en index.html.

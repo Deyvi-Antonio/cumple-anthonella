@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Una sorpresa especial de cumpleaños número 19 para Anthonella: tulipanes, cielo nocturno de estrellas y música.">
+  <meta name="theme-color" content="#25283F">
+  <title>Felices 19, Anthonella ✦ Sorpresa de Cumpleaños</title>
+  <link rel="icon" type="image/svg+xml" href="assets/images/tulipan-icono.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Lienzo de partículas suaves: pétalos de tulipán, estrellas y confeti pastel -->
+  <canvas id="ambient-canvas" aria-hidden="true"></canvas>
+
+  <!-- Cielo nocturno estilo anime con luces, nebulosas y estrellas fugaces -->
+  <div class="sky-backdrop" aria-hidden="true">
+    <div class="aurora aurora--lavender"></div>
+    <div class="aurora aurora--ice"></div>
+    <div class="aurora aurora--rose"></div>
+    <div class="shooting-star shooting-star--1"></div>
+    <div class="shooting-star shooting-star--2"></div>
+    <div class="star-cluster"></div>
+  </div>
+
+  <!-- Reproductor de audio controlado por la usuaria (canción integrada: assets/audio/musica.mp3) -->
+  <audio id="bg-audio" loop preload="metadata">
+    <source src="assets/audio/musica.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="app-shell">
+    <!-- BARRA SUPERIOR: Identidad + Contador de progreso + Control de música -->
+    <header class="top-bar" role="banner">
+      <div class="brand-badge">
+        <img src="assets/images/tulipan-icono.svg" alt="" class="brand-badge__icon" width="28" height="28">
+        <span class="brand-badge__text">ANTHONELLA <span class="brand-badge__divider">✦</span> 19</span>
+      </div>
+
+      <!-- Indicador de progreso y puntos de navegación -->
+      <div class="progress-Readout" aria-live="polite" aria-atomic="true">
+        <span class="progress-label">PANTALLA</span>
+        <span id="progress-counter" class="progress-counter">01 / 03</span>
+        <div class="progress-dots" role="tablist" aria-label="Progreso de pantallas">
+          <button type="button" class="progress-dot is-active" data-goto="1" role="tab" aria-selected="true" aria-label="Ir a Pantalla 1: Bienvenida"></button>
+          <button type="button" class="progress-dot" data-goto="2" role="tab" aria-selected="false" aria-label="Ir a Pantalla 2: Carta personal"></button>
+          <button type="button" class="progress-dot" data-goto="3" role="tab" aria-selected="false" aria-label="Ir a Pantalla 3: Sorpresa final"></button>
+        </div>
+      </div>
+
+      <!-- Botón de música controlado por la usuaria -->
+      <button type="button" id="btn-music" class="music-toggle" aria-pressed="false" aria-label="Reproducir o pausar canción de cumpleaños">
+        <span class="music-toggle__equalizer" aria-hidden="true">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </span>
+        <span id="music-label" class="music-toggle__label">Música: OFF</span>
+      </button>
+    </header>
+
+    <!-- CONTENEDOR PRINCIPAL DE LAS 3 PANTALLAS -->
+    <main class="screens-stage" id="screens-stage">
+
+      <!-- ================================================================
+           PANTALLA 1 — BIENVENIDA
+           ================================================================ -->
+      <section id="screen-1" class="screen is-active" data-screen="1" aria-labelledby="title-screen-1">
+        <div class="screen__inner welcome-card">
+          <!-- Etiqueta estilo diario musical / soft rockstar -->
+          <div class="diary-pill">
+            <span class="diary-pill__star" aria-hidden="true">★</span>
+            <span>VOL. 19 · EDICIÓN ESPECIAL DE CUMPLEAÑOS</span>
+            <span class="diary-pill__star" aria-hidden="true">★</span>
+          </div>
+
+          <!-- Ilustración central: Tulipanes bajo un cielo estrellado anime + vinilo sutil -->
+          <div class="hero-illustration" aria-hidden="true">
+            <div class="vinyl-halo"></div>
+            <svg class="hero-svg" viewBox="0 0 360 230" role="presentation">
+              <defs>
+                <linearGradient id="archNight" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#25283F" stop-opacity="0.95"/>
+                  <stop offset="65%" stop-color="#8975B5" stop-opacity="0.65"/>
+                  <stop offset="100%" stop-color="#DCCCF5" stop-opacity="0.3"/>
+                </linearGradient>
+                <linearGradient id="tulipRose" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#F2D5E4"/>
+                  <stop offset="100%" stop-color="#8975B5"/>
+                </linearGradient>
+                <linearGradient id="tulipLavender" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#DCCCF5"/>
+                  <stop offset="100%" stop-color="#8975B5"/>
+                </linearGradient>
+                <linearGradient id="tulipIce" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#C9E4F5"/>
+                  <stop offset="100%" stop-color="#8975B5"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Arco de ventana nocturna -->
+              <path d="M90 215 L90 95 A90 90 0 0 1 270 95 L270 215 Z" fill="url(#archNight)" stroke="#E4E7EF" stroke-width="1.5" stroke-opacity="0.45"/>
+              <path d="M98 210 L98 95 A82 82 0 0 1 262 95 L262 210" fill="none" stroke="#C9E4F5" stroke-width="0.8" stroke-dasharray="4 4" stroke-opacity="0.4"/>
+
+              <!-- Luna creciente y constelaciones -->
+              <path d="M215 42 A20 20 0 1 0 238 68 A16 16 0 1 1 215 42 Z" fill="#C9E4F5" opacity="0.9"/>
+              <polyline points="120,65 142,50 165,62 182,42" fill="none" stroke="#E4E7EF" stroke-width="0.9" stroke-opacity="0.5"/>
+              <circle cx="120" cy="65" r="2.2" fill="#C9E4F5"/>
+              <circle cx="142" cy="50" r="2.5" fill="#F2D5E4"/>
+              <circle cx="165" cy="62" r="2" fill="#E4E7EF"/>
+              <circle cx="182" cy="42" r="2.5" fill="#DCCCF5"/>
+
+              <!-- Destellos de 4 puntas estilo anime -->
+              <path class="svg-twinkle" d="M60 65 L63 74 L72 77 L63 80 L60 89 L57 80 L48 77 L57 74 Z" fill="#C9E4F5"/>
+              <path class="svg-twinkle svg-twinkle--delay" d="M302 58 L304.5 65 L311.5 67.5 L304.5 70 L302 77 L299.5 70 L292.5 67.5 L299.5 65 Z" fill="#F2D5E4"/>
+              <path class="svg-twinkle" d="M135 92 L137 97 L142 99 L137 101 L135 106 L133 101 L128 99 L133 97 Z" fill="#E4E7EF"/>
+
+              <!-- Notas musicales flotantes -->
+              <text x="52" y="145" fill="#DCCCF5" font-size="18" opacity="0.85">♪</text>
+              <text x="292" y="132" fill="#C9E4F5" font-size="16" opacity="0.85">♫</text>
+
+              <!-- TALLOS Y HOJAS DE LOS TRES TULIPANES -->
+              <path d="M138 152 Q144 184 155 215" fill="none" stroke="#C9E4F5" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M180 132 L180 215" fill="none" stroke="#C9E4F5" stroke-width="4" stroke-linecap="round"/>
+              <path d="M222 152 Q216 184 205 215" fill="none" stroke="#C9E4F5" stroke-width="3.5" stroke-linecap="round"/>
+
+              <!-- Hojas suaves -->
+              <path d="M168 212 C142 200, 122 178, 128 158 C136 174, 152 192, 174 202 Z" fill="#C9E4F5" opacity="0.75"/>
+              <path d="M192 212 C218 200, 238 178, 232 158 C224 174, 208 192, 186 202 Z" fill="#C9E4F5" opacity="0.75"/>
+              <path d="M180 210 C162 190, 160 165, 168 150 C170 168, 174 185, 180 198 Z" fill="#DCCCF5" opacity="0.55"/>
+
+              <!-- TULIPÁN IZQUIERDO (Azul hielo / Lavanda) -->
+              <g class="svg-tulip svg-tulip--left">
+                <path d="M134 108 C122 118, 122 142, 138 152 C154 142, 154 118, 134 108 Z" fill="url(#tulipIce)"/>
+                <path d="M138 152 C120 150, 114 130, 122 114 C126 126, 130 140, 138 152 Z" fill="#DCCCF5" opacity="0.9"/>
+                <path d="M138 152 C154 148, 158 128, 148 114 C146 126, 142 140, 138 152 Z" fill="#8975B5" opacity="0.85"/>
+              </g>
+
+              <!-- TULIPÁN CENTRAL (Rosa empolvado / Lavanda pastel) -->
+              <g class="svg-tulip svg-tulip--center">
+                <path d="M180 76 C162 90, 162 120, 180 134 C198 120, 198 90, 180 76 Z" fill="url(#tulipRose)"/>
+                <path d="M180 134 C158 130, 150 106, 160 86 C165 102, 170 118, 180 134 Z" fill="#DCCCF5" opacity="0.92"/>
+                <path d="M180 134 C202 130, 210 106, 200 86 C195 102, 190 118, 180 134 Z" fill="#F2D5E4" opacity="0.88"/>
+              </g>
+
+              <!-- TULIPÁN DERECHO (Lavanda / Lila profundo) -->
+              <g class="svg-tulip svg-tulip--right">
+                <path d="M226 108 C210 118, 210 142, 222 152 C238 142, 238 118, 226 108 Z" fill="url(#tulipLavender)"/>
+                <path d="M222 152 C206 148, 202 128, 212 114 C214 126, 218 140, 222 152 Z" fill="#8975B5" opacity="0.85"/>
+                <path d="M222 152 C240 150, 246 130, 238 114 C234 126, 230 140, 222 152 Z" fill="#F2D5E4" opacity="0.9"/>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Felicitación principal -->
+          <p class="eyebrow">ENTRE TULIPANES, LUCES NOCTURNAS Y BUENA MÚSICA</p>
+          <h1 id="title-screen-1" class="hero-title">
+            ¡Feliz Cumpleaños, <span class="text-gradient">Anthonella</span>!
+          </h1>
+          <p class="hero-subtitle">
+            Bienvenida a tus <strong>19 años</strong>. Un pequeño rincón bajo un cielo de estrellas pensado para celebrar tu esencia, tus flores favoritas y toda la música que te acompaña.
+          </p>
+
+          <!-- Reproductor decorativo estilo Diario Musical (Soft Rockstar + Dreamy Anime) -->
+          <div class="mini-deck" aria-label="Detalle decorativo de diario musical">
+            <div class="mini-deck__disc" aria-hidden="true">
+              <div class="mini-deck__disc-center"></div>
+            </div>
+            <div class="mini-deck__info">
+              <div class="mini-deck__topline">
+                <span class="mini-deck__tag">DIARIO MUSICAL · PISTA #19</span>
+                <span class="mini-deck__time">00:19 / ∞</span>
+              </div>
+              <p class="mini-deck__track">Tulipanes a Medianoche &amp; Sueños en Vivo</p>
+              <div class="mini-deck__genres" aria-label="Estilos musicales favoritos">
+                <span class="genre-chip">Urban &amp; Trap Arg</span>
+                <span class="genre-chip">Pop &amp; Galaxy Beats</span>
+                <span class="genre-chip">90s Alt Rock &amp; Britpop</span>
+                <span class="genre-chip">English Classics</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón principal para comenzar la experiencia -->
+          <div class="welcome-actions">
+            <button type="button" id="btn-start" class="btn btn--primary btn--glow">
+              <span>Comenzar la experiencia</span>
+              <span class="btn__icon" aria-hidden="true">✦</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           PANTALLA 2 — CARTA PERSONAL
+           ================================================================ -->
+      <section id="screen-2" class="screen" data-screen="2" aria-labelledby="title-screen-2" hidden>
+        <div class="screen__inner letter-wrapper">
+          <div class="section-heading">
+            <span class="section-heading__kicker">PANTALLA 02 · DE CORAZÓN</span>
+            <h2 id="title-screen-2" class="section-heading__title">Una carta para ti</h2>
+          </div>
+
+          <!-- Hoja de papel clara con detalles de tulipanes y música -->
+          <article class="letter-paper" aria-label="Carta de cumpleaños para Anthonella">
+            <!-- Cinta adhesiva decorativa superior -->
+            <div class="paper-tape paper-tape--left" aria-hidden="true"></div>
+            <div class="paper-tape paper-tape--right" aria-hidden="true"></div>
+
+            <!-- Encabezado de la hoja de papel -->
+            <header class="letter-paper__header">
+              <div class="letter-stamp">
+                <span class="letter-stamp__note" aria-hidden="true">♫</span>
+                <span>TRACK 02 · CARTA PERSONAL</span>
+              </div>
+              <div class="letter-tulip-crest" aria-hidden="true">
+                <svg viewBox="0 0 80 36" width="68" height="30">
+                  <path d="M12 18 L30 18" stroke="#8975B5" stroke-width="1.2" stroke-linecap="round"/>
+                  <path d="M50 18 L68 18" stroke="#8975B5" stroke-width="1.2" stroke-linecap="round"/>
+                  <path d="M40 6 C34 11, 34 21, 40 26 C46 21, 46 11, 40 6 Z" fill="#8975B5"/>
+                  <path d="M40 26 C32 24, 30 15, 34 9 C36 14, 37 20, 40 26 Z" fill="#DCCCF5"/>
+                  <path d="M40 26 C48 24, 50 15, 46 9 C44 14, 43 20, 40 26 Z" fill="#F2D5E4"/>
+                </svg>
+              </div>
+              <div class="letter-meta">PARA: ANTHONELLA · 19 AÑOS</div>
+            </header>
+
+            <!-- Contenido íntegro y literal de la carta -->
+            <div class="letter-scroll-area" id="letter-scroll-area" tabindex="0" role="region" aria-label="Texto completo de la carta">
+              <p class="letter-salutation">Holaaaa, Anthonella.</p>
+
+              <p>Hoy es tu cumpleaños, cumples 19 añitos, como pasa el tiempo. Espero que la estés pasando súper chévere en compañía de tus seres queridos, familiares y amigos. De corazón, deseo que todo lo que estés viviendo ahora, por más complicado que sea, nunca llegue a frenar tus proyectos ni los sueños que quieras cumplir.</p>
+
+              <p>Quiero decirte algo que quizás a veces no notes, todos los esfuerzos que estás haciendo ahora, aunque parezcan pequeños o no den los resultados que esperas de inmediato, tarde o temprano darán sus frutos. Así que nunca dejes de confiar en ti misma ni cambies esa bonita forma de ser que te caracteriza. Sigue siendo esa persona tan buena, bondadosa y risueña que eres. No permitas que los pensamientos negativos o pesimistas te hagan olvidar todo lo que eres capaz de lograr. Eres una mujer fuerte y, si algo me has enseñado, es que incluso en los momentos más difíciles siempre se puede encontrar la manera de salir adelante (incluyendo tus explotaciones laborales SDJSKHDKSH).</p>
+
+              <p>Ya te falta un añito para los 20, ¡el tiempo pasa volando! Y aunque todavía quedan muchas cosas por vivir, estoy seguro de que te esperan nuevas oportunidades, aprendizajes y experiencias bonitas. Sé que tienes planes para tu futuro, que quieres ir a la universidad, estudiar una carrera y seguir construyendo tu propio camino. Por eso, además de desearte muchísima suerte en cada uno de tus proyectos, quiero recordarte algo importante, nunca permitas que otras personas decidan por ti ni que sus opiniones te hagan abandonar aquello que realmente quieres para tu vida. Escucha consejos, aprende de los demás, pero nunca olvides que eres tú quien debe decidir qué camino seguir.</p>
+
+              <p>Y si en algún momento te sientes sola, estás pasando por algo difícil o simplemente necesitas hablar con alguien, no dudes en escribirme o llamarme. Tal vez no he sido la persona más constante con el teléfono y sé que antes me costó cumplir con esta promesa, pero quiero que sepas que puedes contar conmigo. Esta vez quiero demostrarte con hechos que puedo estar ahí para ti, escucharte cuando lo necesites y acompañarte, aunque sea a la distancia. No quiero que mis palabras se queden solamente en una promesa más, quiero cumplirla de verdad. Así que, si algún día necesitas a alguien, aquí estaré.</p>
+
+              <p>Te deseo de todo corazón que te vaya muy bien en todo lo que te propongas, que encuentres personas que te quieran de verdad, que tengas motivos para seguir sonriendo y que, incluso en los días malos, nunca te falten las fuerzas para volver a intentarlo. Ojalá este nuevo año de vida te traiga muchas alegrías, nuevas oportunidades y momentos que algún día recuerdes con una sonrisa.</p>
+
+              <p>Feliz cumpleaños, marico JAJAJAJSJS. Espero que disfrutes muchísimo tu día y que la vida te regale muchas cosas bonitas, porque de verdad te las mereces. Cuídate mucho y nunca olvides lo valiosa que eres.</p>
+
+              <footer class="letter-signature">
+                <p class="letter-signature__closing"><strong>Con cariño,</strong></p>
+                <p class="letter-signature__name">Deyvi</p>
+              </footer>
+            </div>
+
+            <!-- Pie decorativo de la carta -->
+            <div class="letter-paper__footer">
+              <span class="letter-footer-detail">✿ Tulipanes &amp; melodías para tus 19</span>
+              <span class="letter-scroll-hint" id="letter-scroll-hint">✦ Carta completa · Con cariño, Deyvi ✦</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- ================================================================
+           PANTALLA 3 — SORPRESA FINAL
+           ================================================================ -->
+      <section id="screen-3" class="screen" data-screen="3" aria-labelledby="title-screen-3" hidden>
+        <div class="screen__inner finale-card">
+          <div class="diary-pill diary-pill--glow">
+            <span aria-hidden="true">✦</span>
+            <span>PANTALLA 03 · GRAN FINAL ESTELAR</span>
+            <span aria-hidden="true">✦</span>
+          </div>
+
+          <!-- Composición visual memorable: Ramo luminoso de tulipanes + cielo estrellado + luces -->
+          <div class="finale-stage" id="finale-stage">
+            <div class="finale-glow-orb" aria-hidden="true"></div>
+
+            <svg class="bouquet-svg" viewBox="0 0 420 250" role="img" aria-label="Ramo luminoso de tulipanes bajo un cielo estrellado con notas musicales">
+              <defs>
+                <radialGradient id="stageGlow" cx="50%" cy="55%" r="50%">
+                  <stop offset="0%" stop-color="#DCCCF5" stop-opacity="0.45"/>
+                  <stop offset="60%" stop-color="#8975B5" stop-opacity="0.2"/>
+                  <stop offset="100%" stop-color="#25283F" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="ribbonGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#F2D5E4"/>
+                  <stop offset="50%" stop-color="#DCCCF5"/>
+                  <stop offset="100%" stop-color="#C9E4F5"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Resplandor estelar de fondo -->
+              <circle cx="210" cy="130" r="115" fill="url(#stageGlow)"/>
+
+              <!-- Constelación "19" en el cielo nocturno -->
+              <g class="constellation-19" opacity="0.85">
+                <!-- Número 1 estelar -->
+                <polyline points="62,55 72,44 72,82" fill="none" stroke="#C9E4F5" stroke-width="1.3" stroke-dasharray="3 2"/>
+                <circle cx="62" cy="55" r="2.5" fill="#E4E7EF"/>
+                <circle cx="72" cy="44" r="3" fill="#C9E4F5"/>
+                <circle cx="72" cy="82" r="2.5" fill="#DCCCF5"/>
+                <!-- Número 9 estelar -->
+                <polyline points="104,58 92,58 90,44 104,44 104,82 91,82" fill="none" stroke="#F2D5E4" stroke-width="1.3" stroke-dasharray="3 2"/>
+                <circle cx="90" cy="44" r="2.5" fill="#F2D5E4"/>
+                <circle cx="104" cy="44" r="3" fill="#C9E4F5"/>
+                <circle cx="92" cy="58" r="2.5" fill="#DCCCF5"/>
+                <circle cx="104" cy="58" r="2.5" fill="#E4E7EF"/>
+                <circle cx="104" cy="82" r="3" fill="#F2D5E4"/>
+              </g>
+
+              <!-- Notas y destellos de escenario -->
+              <text x="330" y="62" fill="#F2D5E4" font-size="20">♫</text>
+              <text x="358" y="96" fill="#C9E4F5" font-size="16">♪</text>
+              <text x="58" y="128" fill="#DCCCF5" font-size="17">✦</text>
+              <path class="svg-twinkle" d="M312 36 L315 44 L323 47 L315 50 L312 58 L309 50 L301 47 L309 44 Z" fill="#C9E4F5"/>
+              <path class="svg-twinkle svg-twinkle--delay" d="M138 30 L140.5 36 L146.5 38.5 L140.5 41 L138 47 L135.5 41 L129.5 38.5 L135.5 36 Z" fill="#F2D5E4"/>
+
+              <!-- Tallos del ramo de 5 tulipanes -->
+              <g stroke="#C9E4F5" stroke-width="3.5" stroke-linecap="round" fill="none">
+                <path d="M126 128 Q165 175 210 220"/>
+                <path d="M164 102 Q186 165 210 222"/>
+                <path d="M210 86 L210 226"/>
+                <path d="M256 102 Q234 165 210 222"/>
+                <path d="M294 128 Q255 175 210 220"/>
+              </g>
+
+              <!-- Hojas envolventes del ramo -->
+              <path d="M210 212 C164 195, 134 168, 138 142 C154 166, 178 188, 210 202 Z" fill="#C9E4F5" opacity="0.72"/>
+              <path d="M210 212 C256 195, 286 168, 282 142 C266 166, 242 188, 210 202 Z" fill="#C9E4F5" opacity="0.72"/>
+              <path d="M210 206 C182 180, 176 146, 186 126 C192 148, 198 176, 210 196 Z" fill="#DCCCF5" opacity="0.6"/>
+              <path d="M210 206 C238 180, 244 146, 234 126 C228 148, 222 176, 210 196 Z" fill="#DCCCF5" opacity="0.6"/>
+
+              <!-- Tulipán 1 (Extremo izquierdo - Azul hielo) -->
+              <g class="bouquet-flower">
+                <path d="M118 90 C106 102, 110 122, 126 130 C140 120, 138 98, 118 90 Z" fill="#C9E4F5"/>
+                <path d="M126 130 C110 128, 102 110, 108 96 C114 108, 118 120, 126 130 Z" fill="#DCCCF5"/>
+                <path d="M126 130 C140 124, 144 106, 134 94 C132 106, 130 118, 126 130 Z" fill="#8975B5"/>
+              </g>
+
+              <!-- Tulipán 2 (Medio izquierdo - Rosa empolvado) -->
+              <g class="bouquet-flower">
+                <path d="M162 62 C148 74, 150 98, 164 108 C178 98, 178 74, 162 62 Z" fill="#F2D5E4"/>
+                <path d="M164 108 C146 104, 140 84, 148 68 C152 80, 156 94, 164 108 Z" fill="#DCCCF5"/>
+                <path d="M164 108 C180 104, 184 84, 176 68 C172 80, 168 94, 164 108 Z" fill="#8975B5" opacity="0.9"/>
+              </g>
+
+              <!-- Tulipán 3 (Central - Lavanda & Rosa estelar) -->
+              <g class="bouquet-flower bouquet-flower--main">
+                <path d="M210 40 C192 56, 192 84, 210 98 C228 84, 228 56, 210 40 Z" fill="#DCCCF5"/>
+                <path d="M210 98 C188 94, 180 70, 190 50 C195 66, 200 82, 210 98 Z" fill="#F2D5E4"/>
+                <path d="M210 98 C232 94, 240 70, 230 50 C225 66, 220 82, 210 98 Z" fill="#C9E4F5"/>
+              </g>
+
+              <!-- Tulipán 4 (Medio derecho - Lavanda pastel) -->
+              <g class="bouquet-flower">
+                <path d="M258 62 C242 74, 242 98, 256 108 C270 98, 272 74, 258 62 Z" fill="#DCCCF5"/>
+                <path d="M256 108 C240 104, 236 84, 244 68 C248 80, 252 94, 256 108 Z" fill="#8975B5" opacity="0.9"/>
+                <path d="M256 108 C274 104, 280 84, 272 68 C268 80, 264 94, 256 108 Z" fill="#F2D5E4"/>
+              </g>
+
+              <!-- Tulipán 5 (Extremo derecho - Azul hielo & Rosa) -->
+              <g class="bouquet-flower">
+                <path d="M302 90 C282 98, 280 120, 294 130 C310 122, 314 102, 302 90 Z" fill="#C9E4F5"/>
+                <path d="M294 130 C280 124, 276 106, 286 94 C288 106, 290 118, 294 130 Z" fill="#8975B5"/>
+                <path d="M294 130 C310 128, 318 110, 312 96 C306 108, 302 120, 294 130 Z" fill="#F2D5E4"/>
+              </g>
+
+              <!-- Lazo plateado y rosa en la base del ramo -->
+              <path d="M188 202 Q210 212 232 202" fill="none" stroke="url(#ribbonGrad)" stroke-width="6" stroke-linecap="round"/>
+              <path d="M210 206 C194 196, 186 212, 198 218 C204 216, 208 210, 210 206 Z" fill="#F2D5E4"/>
+              <path d="M210 206 C226 196, 234 212, 222 218 C216 216, 212 210, 210 206 Z" fill="#DCCCF5"/>
+            </svg>
+          </div>
+
+          <!-- Felicitación final cálida y personal -->
+          <h2 id="title-screen-3" class="finale-title">
+            ¡Felices 19 primaveras, <span class="text-gradient">Anthonella</span>!
+          </h2>
+          <p class="finale-message">
+            Que este nuevo capítulo venga lleno de metas cumplidas, canciones que te hagan cantar a todo pulmón, personas que sumen a tu vida y miles de motivos para sonreír. Nunca dejes de confiar en todo lo que vales.
+          </p>
+
+          <!-- Botón interactivo para lanzar más pétalos, estrellas y destellos -->
+          <div class="finale-sparkle-bar">
+            <button type="button" id="btn-celebrate" class="btn btn--sparkle">
+              <span aria-hidden="true">✨</span>
+              <span>Lanzar lluvia de pétalos y estrellas</span>
+            </button>
+          </div>
+
+          <!-- Galería de fotografías y estilo visual integrada -->
+          <div class="polaroid-grid" aria-label="Galería de fotos y esencia de Anthonella">
+
+            <!-- TARJETA 1: foto1.jpg -->
+            <figure class="polaroid-card">
+              <div class="polaroid-card__frame">
+                <img src="assets/images/foto1.jpg" alt="Ilustración Spider-Punk rockstar en tono azul" class="polaroid-card__img" width="735" height="754">
+                <div class="polaroid-card__art polaroid-card__art--tulips" aria-hidden="true">
+                  <span class="art-badge">✿ TULIP GARDEN</span>
+                  <div class="css-tulip-mini">
+                    <span class="css-tulip-mini__head"></span>
+                    <span class="css-tulip-mini__stem"></span>
+                  </div>
+                </div>
+              </div>
+              <figcaption class="polaroid-card__caption">
+                <strong>Vibra Rockstar</strong>
+                <span>Fiel a tu esencia y a tu propio ritmo</span>
+              </figcaption>
+            </figure>
+
+            <!-- TARJETA 2 (CENTRAL DESTACADA): foto2.jpg -->
+            <figure class="polaroid-card polaroid-card--featured">
+              <div class="polaroid-card__frame">
+                <img src="assets/images/foto2.jpg" alt="Retrato de Anthonella con detalle musical" class="polaroid-card__img" width="1080" height="939">
+                <div class="polaroid-card__art polaroid-card__art--music" aria-hidden="true">
+                  <span class="art-badge">♫ SOUNDTRACK 19</span>
+                  <div class="css-cassette">
+                    <span class="css-cassette__reel"></span>
+                    <span class="css-cassette__window"></span>
+                    <span class="css-cassette__reel"></span>
+                  </div>
+                </div>
+              </div>
+              <figcaption class="polaroid-card__caption">
+                <strong>Anthonella · 19 Años</strong>
+                <span>Tulipanes, melodías y sueños por cumplir</span>
+              </figcaption>
+            </figure>
+
+            <!-- TARJETA 3: foto3.jpg -->
+            <figure class="polaroid-card">
+              <div class="polaroid-card__frame">
+                <img src="assets/images/foto3.jpg" alt="Ilustración Spider-Punk estilo cómic" class="polaroid-card__img" width="736" height="736">
+                <div class="polaroid-card__art polaroid-card__art--sky" aria-hidden="true">
+                  <span class="art-badge">✦ DREAMY SKY</span>
+                  <div class="css-star-sky">
+                    <span class="css-moon"></span>
+                    <span class="css-star-sparkle">✦</span>
+                  </div>
+                </div>
+              </div>
+              <figcaption class="polaroid-card__caption">
+                <strong>Energía sin Límites</strong>
+                <span>Todo un cielo abierto por conquistar</span>
+              </figcaption>
+            </figure>
+
+          </div>
+
+          <!-- Botón principal para volver a empezar -->
+          <div class="finale-actions">
+            <button type="button" id="btn-restart-final" class="btn btn--primary">
+              <span aria-hidden="true">↺</span>
+              <span>Volver a empezar</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- BARRA INFERIOR DE NAVEGACIÓN: Anterior, Contador, Siguiente y Reinicio -->
+    <nav class="bottom-nav" aria-label="Navegación entre pantallas">
+      <button type="button" id="btn-prev" class="btn btn--nav" disabled aria-label="Ir a la pantalla anterior">
+        <span aria-hidden="true">←</span>
+        <span>Anterior</span>
+      </button>
+
+      <div class="bottom-nav__center">
+        <span id="step-status-text" class="bottom-nav__status">Paso 1 de 3 · Bienvenida</span>
+        <button type="button" id="btn-reset" class="btn-link-reset" aria-label="Reiniciar recorrido a la pantalla 1">
+          ↺ Reiniciar
+        </button>
+      </div>
+
+      <button type="button" id="btn-next" class="btn btn--nav btn--nav-next" aria-label="Ir a la pantalla siguiente">
+        <span>Siguiente</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

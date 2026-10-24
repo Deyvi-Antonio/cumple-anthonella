@@ -1,0 +1,17 @@
+================================================================
+CARPETA DE AUDIO (assets/audio/)
+================================================================
+
+Por defecto, el botón de música de la página reproduce una melodía
+ambiental original (estilo caja musical / cielo nocturno) generada
+directamente por el navegador, sin necesidad de archivos externos.
+
+Si deseas colocar una canción personalizada en formato MP3:
+1. Copia tu archivo de audio en esta carpeta (assets/audio/).
+2. Renómbralo como: musica.mp3
+3. En el archivo index.html, busca la etiqueta <audio id="bg-audio">
+   y quita los símbolos de comentario <!-- y --> de la línea:
+   <source src="assets/audio/musica.mp3" type="audio/mpeg">
+
+Recuerda utilizar únicamente audios de los que tengas permiso o sin
+derechos de autor si vas a publicar el repositorio públicamente.
